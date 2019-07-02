@@ -1,0 +1,1 @@
+This is a MATLAB program to simulate a double pendulum. Motions of the pendulum will be calculated in the main program and an animation is generated to show the result. This program can be run in MATLAB R2017b.
