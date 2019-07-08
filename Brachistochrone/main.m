@@ -10,7 +10,9 @@ len = xGoal/step + 1;
 stopFlag = false;
 
 xArray = 0:step:xGoal;
-yArray = yGen(1, xArray);
+
+route = input('Select route: ');
+yArray = yGen(route, xArray);
 
 %calculate arc by step
 arcLen = zeros(1, len-1);
@@ -21,13 +23,11 @@ end
 %calculate time and horizontal velocity by step
 tArray = zeros(1, len-1);
 vArray = zeros(1, len);
+
 for i=1:len-1
-    %calculate horizontal acceleration
-    %acc = g*sin(theta)*cos(theta)
-    %sin(theta)=arc/dy, cos(theta)=arc/dx
-    acc = g*(yArray(i)-yArray(i+1))/arcLen(i)*step/arcLen(i);
-    %judge if step goal can be arrived
-    temp = vArray(i)^2+2*acc*step;
+    %calculate acceleration
+    acc = g*(yArray(i)-yArray(i+1))/arcLen(i);
+    temp = vArray(i)^2+2*acc*arcLen(i);
     if temp < 0
         stopFlag = true;
         break
@@ -38,9 +38,8 @@ end
 
 tAll = sum(tArray);
 if not(stopFlag)
+    disp('Time:');
     disp(tAll);
 else
     disp('Goal cannot be arrived');
 end
-    
-%animation
